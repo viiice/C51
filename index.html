@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C51单片机</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.15.1/lib/theme-chalk/index.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #app {
+            text-align: center;
+        }
+    </style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+    <div id="app">
+        <h2 class="el-title">51单片机P1口值计算器</h2>
+        <h4 class="el-paragraph">温馨提示：<br>未选中表示低电平<br>选中表示高电平</h4>
+        <el-button-group>
+            <el-button v-for="(button, index) in buttons" :key="index"
+                :type="selectedButtons.includes(index) ? 'success' : 'default'" @click="toggleButton(index)">
+                P1.{{ index }}
+            </el-button>
+        </el-button-group>
+        <div style="margin-top: 10px;">
+            <el-button @click="calculateHex">计算</el-button>
+            <el-button @click="resetButtons">重置</el-button>
+        </div>
+
+        <h1 style="margin-top: 10px;">
+            <p>值: {{ combinedValue }}</p>
+        </h1>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/element-ui@2.15.1/lib/index.js"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                buttons: [1, 2, 4, 8, 1, 2, 4, 8],
+                selectedButtons: [],
+                hexValue1: '',
+                hexValue2: '',
+                combinedValue: '0x00',
+            },
+            methods: {
+                toggleButton(index) {
+                    if (this.selectedButtons.includes(index)) {
+                        this.selectedButtons = this.selectedButtons.filter(btn => btn !== index);
+                    } else {
+                        this.selectedButtons.push(index);
+                    }
+                },
+                resetButtons() {
+                    this.selectedButtons = [];
+                    this.hexValue1 = '';
+                    this.hexValue2 = '';
+                    this.combinedValue = '0x00';
+                },
+                calculateHex() {
+                    let value1 = 0;
+                    let value2 = 0;
+                    for (const index of this.selectedButtons) {
+                        if (index >= 4) {
+                            value1 += this.buttons[index];
+                        } else {
+                            value2 += this.buttons[index];
+                        }
+                    }
+                    this.combinedValue = `0x${value1.toString(16)}${value2.toString(16)}`;
+                },
+            },
+        });
+    </script>
+</body>
+
+</html>
