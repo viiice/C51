@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>C51单片机</title>
+    <title>C51单片机/title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-ui@2.15.1/lib/theme-chalk/index.css">
     <style>
         body {
@@ -40,6 +40,14 @@
         <h1 style="margin-top: 10px;">
             <p>值: {{ combinedValue }}</p>
         </h1>
+        <div>
+            <h2 class="el-title">LED数码管的段码</h2>
+            <el-table :data="tableData" :border="true">
+                <el-table-column label="显示字符" prop="column1"></el-table-column>
+                <el-table-column label="共阴极" prop="column2"></el-table-column>
+                <el-table-column label="共阳极" prop="column3"></el-table-column>
+            </el-table>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
@@ -53,6 +61,32 @@
                 hexValue1: '',
                 hexValue2: '',
                 combinedValue: '0x00',
+                tableData: [
+                    { column1: '0', column2: '3FH', column3: 'C0H' },
+                    { column1: '1', column2: '06H', column3: 'F9H' },
+                    { column1: '2', column2: '5BH', column3: 'A4H' },
+                    { column1: '3', column2: '4FH', column3: 'B0H' },
+                    { column1: '4', column2: '66H', column3: '99H' },
+                    { column1: '5', column2: '6DH', column3: '92H' },
+                    { column1: '6', column2: '7DH', column3: '82H' },
+                    { column1: '7', column2: '07H', column3: 'F8H' },
+                    { column1: '8', column2: '7FH', column3: '80H' },
+                    { column1: '9', column2: '6FH', column3: '90H' },
+                    { column1: 'A', column2: '77H', column3: '88H' },
+                    { column1: 'b', column2: '7CH', column3: '83H' },
+                    { column1: 'C', column2: '39H', column3: 'C6H' },
+                    { column1: 'D', column2: '5EH', column3: 'A1H' },
+                    { column1: 'E', column2: '79H', column3: '86H' },
+                    { column1: 'F', column2: '71H', column3: '8EH' },
+                    { column1: 'P', column2: '73H', column3: '8CH' },
+                    { column1: 'U', column2: '3EH', column3: 'C1H' },
+                    { column1: 'T', column2: '31H', column3: 'CEH' },
+                    { column1: 'Y', column2: '6EH', column3: '91H' },
+                    { column1: 'H', column2: '76H', column3: '89H' },
+                    { column1: 'L', column2: '38H', column3: 'C7H' },
+                    { column1: '"灭"', column2: '00H', column3: 'FFH' },
+                    // 添加更多数据行
+                ]
             },
             methods: {
                 toggleButton(index) {
